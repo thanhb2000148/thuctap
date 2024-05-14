@@ -26,7 +26,13 @@ var order = new Schema({
     status_name: {
       type: String
     },
-    ngày kết thúc: {
+    status_code: {
+      type: Number
+    },
+    from_date: {
+      type: Date
+    },
+    to_date: {
       type: Date
     }
   }]
