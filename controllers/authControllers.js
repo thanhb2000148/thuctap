@@ -1,6 +1,7 @@
 const account = require("../models/account");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const authController = {
   registerUser: async (req, res) => {
     try {
@@ -44,19 +45,30 @@ const authController = {
       });
       if (!loginAccount) {
         return res.status(404).json({
-          message: "Account not found",
+          message: "wrong username",
         });
       }
-      const isMatch = await bcrypt.compare(
+      const validPassword = await bcrypt.compare(
         req.body.password,
         loginAccount.password
       );
-      if (!isMatch) {
+      if (!validPassword) {
         return res.status(400).json({
-          message: "Invalid credentials",
+          message: "wrong password",
         });
       }
-      res.status(200).json(loginAccount);
+      if (loginAccount && validPassword) {
+        const webToken = jwt.sign(
+          {
+            id: loginAccount.id,
+            admin: loginAccount.object_role.is_admin,
+          },
+          process.env.JWT_ACCESS_KEY, // key để đăng nhập vào
+          { expiresIn: "60s" } // thời gian token hết hạn
+        );
+        const { password, ...others } = loginAccount._doc; // bỏ password ra khỏi res
+        res.status(200).json({ ...others, webToken });
+      }
     } catch (e) {
       res.status(500).json({
         message: e.message,
