@@ -49,6 +49,7 @@ var account = new Schema({
   },
   user_id: {
     type: Schema.Types.ObjectId,
+    ref: "user",
   },
 });
 module.exports = mongoose.model("account", account);
