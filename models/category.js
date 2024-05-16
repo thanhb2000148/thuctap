@@ -1,13 +1,13 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var category = new Schema({
-  category_name: {
+var CATEGORY = new Schema({
+  CATEGORY_NAME: {
     type: String,
   },
-  created_at: {
+  CREATED_AT: {
     type: Date,
   },
-  updated_at: {
+  UPDATED_AT: {
     type: Date,
   },
 });

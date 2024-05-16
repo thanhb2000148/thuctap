@@ -1,31 +1,56 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var product = new Schema({
-  name_product: {
+var PRODUCT = new Schema({
+  NAME_PRODUCT: {
     type: String,
   },
-  code_product: {
+  CODE_PRODUCT: {
     type: Number,
   },
-  short_desc: {
+  SHORT_DESC: {
     type: String,
   },
-  desc_product: {
+  DESC_PRODUCT: {
     type: String,
   },
-  number_product: {
+  NUMBER_INVENTORY_PRODUCT: {
     type: Number,
   },
-  created_at: {
+  CREATED_AT: {
     type: Date,
   },
-  updated_at: {
+  UPDATED_AT: {
     type: Date,
   },
-  category_id: {
+  CATEGORY_ID: {
     type: Schema.Types.ObjectId,
   },
-  created_by_user_id: {
+  LIST_PRODUCT_METADATA: [
+    {
+      KEY: {
+        type: String,
+      },
+      VALUE: {
+        type: String,
+      },
+    },
+  ],
+  LIST_FILE_ATTACHMENT: {
+    FILE_URL: {
+      type: String,
+    },
+    FILE_TYPE: {
+      type: String,
+    },
+    FROM_DATE: {
+      type: Date,
+    },
+    TO_DATE: {
+      type: Date,
+    },
+  },
+  ACCOUNT__ID: {
     type: Schema.Types.ObjectId,
+    required: true,
   },
 });
