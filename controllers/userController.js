@@ -3,7 +3,7 @@ const user = require("../models/user");
 const userController = {
   getAllUsers: async (req, res) => {
     try {
-      const User = await account.find().populate("user_id");
+      const User = await account.find().populate("USER_ID");
       res.status(200).json(User);
     } catch (err) {
       res.status(500).json({
@@ -13,7 +13,7 @@ const userController = {
   },
   getAUser: async (req, res) => {
     try {
-      const User = await account.findById(req.params.id).populate("user_id");
+      const User = await account.findById(req.params.id).populate("USER_ID");
       res.status(200).json(User);
     } catch (err) {
       res.status(500).json({
@@ -29,8 +29,8 @@ const userController = {
           message: "account not found",
         });
       }
-      if (accountToDelete.user_id) {
-        await user.findByIdAndDelete(accountToDelete.user_id);
+      if (accountToDelete.USER_ID) {
+        await user.findByIdAndDelete(accountToDelete.USER_ID);
       }
       await account.findByIdAndDelete(req.params.id);
       res.status(200).json({ message: "User deleted" });

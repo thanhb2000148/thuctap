@@ -1,55 +1,58 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var account = new Schema({
-  user_name: {
+var ACCOUNT = new Schema({
+  USER_NAME: {
     type: String,
   },
-  password: {
+  PASSWORD: {
     type: String,
   },
-  object_role: {
-    is_admin: {
+  OBJECT_ROLE: {
+    IS_ADMIN: {
       type: Boolean,
       default: false,
     },
-    is_employe_manager: {
+    IS_EMPLOYER_MANAGER: {
       type: Boolean,
       default: false,
     },
-    is_staff: {
+    IS_STAFF: {
       type: Boolean,
       default: false,
     },
   },
-  list_code_active: [
+  LIST_CODE_ACTIVE: [
     {
-      code: {
+      CODE: {
         type: String,
       },
-      is_used: {
+      IS_USING: {
         type: Boolean,
       },
-      created_at: {
+      CREATED_AT: {
         type: Date,
       },
-      time_used: {
+      TIME_USING: {
         type: Date,
       },
-      type: {
+      TYPE: {
         type: String,
         enum: ["ACTIVE", "PASSWORD"],
       },
+      EXP_DATE: {
+        type: Date,
+      },
     },
   ],
-  is_active: {
+  IS_ACTIVE: {
     type: Boolean,
   },
-  is_lock: {
+  IS_LOCK: {
     type: Boolean,
   },
-  user_id: {
+  USER_ID: {
     type: Schema.Types.ObjectId,
     ref: "user",
   },
 });
-module.exports = mongoose.model("account", account);
+module.exports = mongoose.model("account", ACCOUNT);

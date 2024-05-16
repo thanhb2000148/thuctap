@@ -1,46 +1,54 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var user = new Schema({
-  first_name: {
+var USER = new Schema({
+  FIRST_NAME: {
     type: String,
   },
-  last_name: {
+  MIDLE_NAME: {
     type: String,
   },
-  email_user: {
+  FULL_NAME: {
     type: String,
   },
-  address_user: {
-    Province: {
-      type: String,
-    },
-    District: {
-      type: String,
-    },
-    Commune: {
-      type: String,
-    },
-    desc: {
-      type: String,
-    },
-  },
-  phone_number: {
+  LAST_NAME: {
     type: String,
   },
-  created_at: {
+  EMAIL_USER: {
+    type: String,
+  },
+  LIST_ADDRES_USER: [
+    {
+      PROVINCE: {
+        type: String,
+      },
+      DISTRICT: {
+        type: String,
+      },
+      COMMUNE: {
+        type: String,
+      },
+      DESC: {
+        type: String,
+      },
+      FROM_DATE: {
+        type: Date,
+      },
+      TO_DATE: {
+        type: Date,
+      },
+    },
+  ],
+  PHONE_NUMBER: {
+    type: String,
+  },
+  CREATED_AT: {
     type: Date,
   },
-  genger_user: {
+  GENGER_USER: {
     type: String,
   },
-  midle_name: {
-    type: String,
-  },
-  full_name: {
-    type: String,
-  },
-  avt: {
+  AVT_URL: {
     type: String,
   },
 });
-module.exports = mongoose.model("user", user);
+module.exports = mongoose.model("user", USER);
