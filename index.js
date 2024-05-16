@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const authRouter = require("./router/authRouter");
 const userRouter = require("./router/userRouter");
+const emailRouter = require("./router/sendMailRouter");
 // Load environment variables from .env file
 dotenv.config();
 
@@ -33,9 +34,10 @@ mongoose
 // Routes
 app.use("/v1/auth", authRouter);
 app.use("/v1/user", userRouter);
+app.use("/v1/sendMail", emailRouter);
 // Start server
 app.listen(8000, () => {
   console.log(`Server is running on port 8000`);
 });
 
-// 
+//
