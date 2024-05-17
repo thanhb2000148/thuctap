@@ -29,7 +29,7 @@ const authController = {
         PHONE_NUMBER: req.body.phone_number,
         CREATED_AT: new Date(),
         GENGER_USER: req.body.gender_user,
-        MIDLE_NAME: req.body.middle_name,
+        MIDDLE_NAME: req.body.middle_name,
         FULL_NAME: req.body.full_name,
         AVT_URL: req.body.avt,
       });
@@ -92,8 +92,8 @@ const authController = {
           process.env.JWT_REFRESH_KEY, // key để đăng nhập vào
           { expiresIn: "365d" } // thời gian token hết hạn
         );
-        const { password, ...others } = loginAccount._doc; // bỏ password ra khỏi res
-        res.status(200).json({ ...others, accessToken, refreshToken });
+        // bỏ password ra khỏi res
+        res.status(200).json({ accessToken, refreshToken });
       }
     } catch (e) {
       res.status(500).json({

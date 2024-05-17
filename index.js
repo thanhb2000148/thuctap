@@ -17,13 +17,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 // MongoDB connection
-const mongoURI = process.env.MONGODB_URI;
-
+const password = encodeURIComponent("tttt2024group1#@");
+const mongoConnect = `mongodb://internship_group_1:${password}@dtuct.ddns.net:6969/STORE_MANGAGER`;
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(mongoConnect, {})
   .then(() => {
     console.log("Connected to MongoDB");
   })

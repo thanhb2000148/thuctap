@@ -4,7 +4,7 @@ var USER = new Schema({
   FIRST_NAME: {
     type: String,
   },
-  MIDLE_NAME: {
+  MIDDLE_NAME: {
     type: String,
   },
   FULL_NAME: {
