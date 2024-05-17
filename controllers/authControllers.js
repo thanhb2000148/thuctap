@@ -2,9 +2,23 @@ const account = require("../models/account");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {
+  registerUserSchema,
+  loginUserSchema,
+} = require("../validation/authValidator");
 const authController = {
   registerUser: async (req, res) => {
     try {
+      const { error } = registerUserSchema.validate(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+      }
+      const existingAccount = await account.findOne({
+        USER_NAME: req.body.user_name,
+      });
+      if (existingAccount) {
+        return res.status(400).json({ message: "username already exists" });
+      }
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
       //create a new user
@@ -35,10 +49,15 @@ const authController = {
       });
     }
   },
+  // generate access token
 
   // Login
   loginUser: async (req, res) => {
     try {
+      const { error } = loginUserSchema.validate(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+      }
       const loginAccount = await account.findOne({
         USER_NAME: req.body.user_name,
       });
@@ -57,16 +76,24 @@ const authController = {
         });
       }
       if (loginAccount && validPassword) {
-        const webToken = jwt.sign(
+        const accessToken = jwt.sign(
           {
             id: loginAccount.id,
             admin: loginAccount.OBJECT_ROLE.IS_ADMIN,
           },
           process.env.JWT_ACCESS_KEY, // key để đăng nhập vào
-          { expiresIn: "60s" } // thời gian token hết hạn
+          { expiresIn: "1h" } // thời gian token hết hạn
+        );
+        const refreshToken = jwt.sign(
+          {
+            id: loginAccount.id,
+            admin: loginAccount.OBJECT_ROLE.IS_ADMIN,
+          },
+          process.env.JWT_REFRESH_KEY, // key để đăng nhập vào
+          { expiresIn: "365d" } // thời gian token hết hạn
         );
         const { password, ...others } = loginAccount._doc; // bỏ password ra khỏi res
-        res.status(200).json({ ...others, webToken });
+        res.status(200).json({ ...others, accessToken, refreshToken });
       }
     } catch (e) {
       res.status(500).json({

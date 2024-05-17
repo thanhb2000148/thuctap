@@ -39,7 +39,7 @@ var USER = new Schema({
     },
   ],
   PHONE_NUMBER: {
-    type: String,
+    type: Number,
   },
   CREATED_AT: {
     type: Date,

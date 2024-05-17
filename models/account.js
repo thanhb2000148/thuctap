@@ -3,6 +3,8 @@ var Schema = mongoose.Schema;
 var ACCOUNT = new Schema({
   USER_NAME: {
     type: String,
+    required: true,
+    unique: true,
   },
   PASSWORD: {
     type: String,
@@ -46,9 +48,11 @@ var ACCOUNT = new Schema({
   ],
   IS_ACTIVE: {
     type: Boolean,
+    default: true,
   },
   IS_LOCK: {
     type: Boolean,
+    default: false,
   },
   USER_ID: {
     type: Schema.Types.ObjectId,

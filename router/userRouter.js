@@ -3,5 +3,9 @@ const middlewareController = require("../controllers/middlewareController");
 const router = require("express").Router();
 router.get("/", middlewareController.verityToken, userController.getAllUsers);
 router.get("/:id", userController.getAUser);
-router.delete("/:id", userController.deleteUser);
+router.delete(
+  "/:id",
+  middlewareController.verifyTokenAndAdminAuth,
+  userController.deleteUser
+);
 module.exports = router;
