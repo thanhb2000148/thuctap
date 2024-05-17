@@ -36,6 +36,10 @@ var USER = new Schema({
       TO_DATE: {
         type: Date,
       },
+      IS_DEFAULT: {
+        type: Boolean,
+        default: true,
+      },
     },
   ],
   PHONE_NUMBER: {
