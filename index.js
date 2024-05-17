@@ -11,24 +11,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-
-const mongoURI = process.env.MONGODB_URI;
-
+// MongoDB connection
+const password = encodeURIComponent("tttt2024group1#@");
+const mongoConnect = `mongodb://internship_group_1:${password}@dtuct.ddns.net:6969/STORE_MANGAGER`;
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(mongoConnect, {})
   .then(() => {
     console.log("Connected to MongoDB");
   })
   .catch((err) => {
     console.error("Error connecting to MongoDB", err);
   });
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
 
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
